@@ -17,7 +17,7 @@ function findNextMoves(currentX, currentY) {
   return knightMoves.map(([x, y]) => [currentX + x, currentY + y]);
 }
 
-function findShortestPath(start, end) {
+export function findShortestPath(start, end) {
   let queue = [[start, 0, [start]]];
   let visited = new Set();
 
@@ -46,11 +46,15 @@ function findShortestPath(start, end) {
   return null; // No path found
 }
 
-const result = findShortestPath([0, 0], [7, 7]);
+export const result = findShortestPath([0, 0], [7, 7]);
 
-if (result) {
-  console.log("Minimum moves:", result.moveCount);
-  console.log("Path:", result.path);
-} else {
-  console.log("No path found.");
+function outputResult() {
+  if (result) {
+    console.log("Minimum moves:", result.moveCount);
+    console.log("Path:", result.path);
+    const moveQueue = result.path;
+    console.log(moveQueue);
+  } else {
+    console.log("No path found.");
+  }
 }

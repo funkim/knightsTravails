@@ -1,5 +1,6 @@
 import { style } from "./style.css";
 import icon from "./assets/images/chess-knight.svg";
+import { findShortestPath, result } from "./logic";
 
 function createGameboard() {
   const gameboard = document.querySelector(".gameboard");
@@ -9,7 +10,6 @@ function createGameboard() {
     gameboard.appendChild(xSquare);
     for (let j = 0; j < 8; j++) {
       let ySquare = document.createElement("div");
-      ySquare.textContent = j;
       ySquare.classList.add("innernode");
       xSquare.appendChild(ySquare);
     }
@@ -26,7 +26,7 @@ chessPiece.src = icon;
 chessPiece.classList.add("piece");
 
 container.appendChild(gameboard);
-container.appendChild(chessPiece);
+gameboard.appendChild(chessPiece);
 
 function moveKnight(x, y) {
   const targetNode = document.querySelector(
@@ -55,6 +55,46 @@ function moveKnight(x, y) {
   );
 }
 
-setTimeout(() => {
-  moveKnight(2, 3);
-}, 2000);
+let startPosition = [0, 0];
+function getUserSubmit(event) {
+  event.preventDefault();
+  const userX = document.querySelector(".horizontal").value;
+  const userY = document.querySelector(".vertical").value;
+  const errorMessage = document.querySelector(".error");
+
+  if (isNaN(userX) || isNaN(userY)) {
+    errorMessage.textContent = "Please Input 2 Single Digit Numbers";
+    errorMessage.style.display = "block";
+  } else if (userX < 0 || userX > 7 || userY < 0 || userY > 7) {
+    errorMessage.textContent =
+      "Numbers must be between 0-7 to match position on chess board.";
+    errorMessage.style.display = "block";
+  } else {
+    errorMessage.style.display = "none";
+    const endGoal = [parseInt(userX), parseInt(userY)];
+    const result = findShortestPath(startPosition, endGoal);
+    for (let i = 0; i < result.path.length; i++) {
+      let currentXPathd = result.path[i][0];
+      let currentYPathd = result.path[i][1];
+      setTimeout(() => {
+        moveKnight(currentXPathd, currentYPathd);
+      }, 2000 * i);
+      startPosition = endGoal;
+    }
+    result.path = [];
+  }
+}
+
+const form = document.querySelector("form");
+form.addEventListener("submit", getUserSubmit);
+
+function outputResult() {
+  if (result) {
+    console.log("Minimum moves:", result.moveCount);
+    console.log("Path:", result.path);
+    const moveQueue = result.path;
+    console.log(moveQueue);
+  } else {
+    console.log("No path found.");
+  }
+}

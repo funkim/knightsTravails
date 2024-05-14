@@ -13,9 +13,26 @@
     </div>
     <fieldset>
       <legend>Where do you want to move?</legend>
-
-      <input type="text" name="Horizontal Spot" placeholder="Horizontal" />
-      <input type="text" name="Vertical Spot" placeholder="Vertical" />
+      <form>
+        <div>
+          <input
+            type="text"
+            name="Horizontal Spot"
+            placeholder="X"
+            class="horizontal input"
+            required
+          />
+          <input
+            type="text"
+            name="Vertical Spot"
+            placeholder="Y"
+            class="vertical input"
+            required
+          />
+        </div>
+        <input type="submit" name="move" placeholder="move!" class="submit" />
+      </form>
+      <h3 class="error">error</h3>
     </fieldset>
   </body>
 </html>

@@ -19,9 +19,26 @@ fieldset {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
   max-width: 10px;
   gap: 10px;
+}
+
+form {
+  display: flex;
+}
+
+.input {
+  display: flex;
+  width: 30px;
+  height: 30px;
+}
+
+.error {
+  display: none;
+  position: absolute;
+  transform: translate(0, 100px);
+  color: red;
 }
 
 h1 {
@@ -56,13 +73,17 @@ h1 {
 
 @keyframes move {
   0% {
-    transform: translate(0, 0);
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(calc(var(--move-x) / 2), calc(var(--move-y) / 2))
+      scale(5);
   }
   100% {
-    transform: translate(var(--move-x), var(--move-y));
+    transform: translate(var(--move-x), var(--move-y)) scale(0);
   }
 }
 
 .moving {
-  animation: move 1s forwards;
+  animation: move 1s;
 }
