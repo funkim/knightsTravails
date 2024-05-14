@@ -1,0 +1,68 @@
+body {
+  display: flex;
+  width: 100vw;
+  height: 90vh;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row;
+  max-width: 10px;
+  gap: 10px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.gameboard {
+  display: flex;
+  flex-wrap: wrap;
+  width: 320px;
+  height: 320px;
+  border: 2px solid #000;
+}
+
+.outernode {
+  display: flex;
+  flex-direction: column;
+}
+
+.innernode {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.piece {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+}
+
+@keyframes move {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(var(--move-x), var(--move-y));
+  }
+}
+
+.moving {
+  animation: move 1s forwards;
+}
